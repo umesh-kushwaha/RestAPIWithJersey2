@@ -49,4 +49,16 @@ public class UserService implements IUserService{
 		return userDAO.getUserById(id);
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		return userDAO.getUserByEmail(email);
+	}
+
+	@Override
+	public boolean isPasswordMatched(String rawPassword, String storedPassword) {
+		// TODO Auto-generated method stub
+		return userDAO.isPasswordMatched(rawPassword, storedPassword);
+	}
+
 }

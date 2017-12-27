@@ -80,4 +80,22 @@ public class UserDAO implements IUserDAO{
 		return passwordEncoder.matches(rawPassword, storedPassword);
 	}
 
+	@Override
+	public User getUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		String hql = "Select  u FROM User  u WHERE u.email = ? ";
+		List<User> userList = entityManager.createQuery(hql)
+					 .setParameter(1, email)
+					 .getResultList();
+		if(userList != null && userList.size() > 0) {
+			return userList.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	public boolean isPasswordMatched(String rawPassword, String storedPassword) {
+		return passwordEncoder.matches(rawPassword, storedPassword);
+	}
+
 }

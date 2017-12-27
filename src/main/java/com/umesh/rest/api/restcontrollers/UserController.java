@@ -120,4 +120,18 @@ public class UserController {
 		String message= "{\"message\":\"User deleted successfully\"}";
 		return Response.ok().entity(message).build();
 	}	
+	
+	@POST
+	@Path("/login")
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response login(@FormParam("email") String email, @FormParam("password") String password) {
+		User user = mUserService.getUserByEmail(email);
+		
+		if( user == null  || !mUserService.isPasswordMatched(password, user.getPassword())) {
+			String entity = "{\"message\":\"email or password is wrong\"}";
+			return Response.status(Status.BAD_REQUEST).entity(entity).build();
+		}
+		return Response.ok(user).build();
+	}
 }

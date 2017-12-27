@@ -10,4 +10,6 @@ public interface IUserService {
 	void updateUser(User user);
 	void deleteUser(long id);
 	User getUserById(long id);
+	User getUserByEmail(String email);
+	boolean isPasswordMatched(String rawPassword, String storedPassword);
 }

@@ -11,5 +11,7 @@ public interface  IUserDAO {
 	void updateUser(User user);
 	void deleteUser(long id);
 	User getUserById(long id);
+	User getUserByEmail(String email);
+	boolean isPasswordMatched(String rawPassword, String storedPassword);
 	boolean isUserExist(User user);
 }
