@@ -38,7 +38,7 @@ public class CORSFilter implements Filter {
     	httpResponse.setHeader("Access-Control-Allow-Credentials", "false");
         httpResponse.setHeader("Access-Control-Max-Age", "4800");
         
-        if (request instanceof HttpServletRequest) {
+       /* if (request instanceof HttpServletRequest) {
         	   HttpServletRequest httpRequest = (HttpServletRequest) request;
 
         	   String authorization = httpRequest.getHeader("Authorization");
@@ -54,7 +54,10 @@ public class CORSFilter implements Filter {
         		     httpResponse.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         		     httpResponse.getOutputStream().write(errorMessage.getBytes());
         	   }
-        }
+        }*/
+        
+		   chainfilter.doFilter(request, response);
+
 		
 	}
 
