@@ -1,5 +1,7 @@
 package com.umesh.rest.api.restcontrollers;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -16,11 +18,14 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
+import org.glassfish.jersey.media.multipart.FormDataParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.umesh.rest.api.entity.User;
 import com.umesh.rest.api.service.UserService;
+import com.umesh.rest.api.util.FileUtils;
 
 @Component
 @Path("/user")
@@ -134,4 +139,36 @@ public class UserController {
 		}
 		return Response.ok(user).build();
 	}
+	
+	
+	@POST
+    @Path("/upload/profile")
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
+	@Produces(MediaType.APPLICATION_JSON)
+    public Response uploadZippedFile(
+            @FormDataParam("uploadFile") InputStream fileInputStream,
+            @FormDataParam("uploadFile") FormDataContentDisposition fileFormDataContentDisposition) {
+ 
+        // local variables
+        String fileName = null;
+        String uploadFilePath = null;
+ 
+        try {
+            fileName = fileFormDataContentDisposition.getFileName();
+            logger.info("file name : "+ fileName);
+
+            uploadFilePath = FileUtils.writeToFileServer(fileInputStream, fileName);
+        }
+        catch(IOException ioe){
+            ioe.printStackTrace();
+        }
+        finally{
+            // release resources, if any
+        }
+        String entity = "{\"message\":\""+ "File uploaded successfully\"}";
+        
+        logger.info(entity);
+        return Response.ok().entity(entity).build();
+    }
 }
+
