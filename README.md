@@ -27,7 +27,10 @@ spring.datasource.password=*******
 4. Get user by id.
 5. Get all user list
 6. User login
+7. File upload 
 
-<b>Basic authorization security implemented.</b>
-<b>Cross-origin resource sharing implemented<b>
+<b>Basic authorization security implemented.</b></br>
+
+<b>Cross-origin resource sharing implemented<b></br>
+
 <b>Password is stored in database in encripted form.</b>
